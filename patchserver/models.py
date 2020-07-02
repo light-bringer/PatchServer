@@ -290,12 +290,13 @@ class Criteria(db.Model):
     def __init__(self, **kwargs):
         super(Criteria, self).__init__(**kwargs)
 
-        self.hash = hashlib.sha1(
+        self.hash = hashlib.sha1(str(
             self.name +
             self.operator +
             self.value +
             self.type_ +
             str(self.and_)
+        ).encode('utf-8')
         ).hexdigest()
 
     @property
